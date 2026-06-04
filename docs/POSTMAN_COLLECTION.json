@@ -1,0 +1,59 @@
+{
+  "info": {
+    "name": "HMS Enterprise API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api/v1" },
+    { "key": "accessToken", "value": "" },
+    { "key": "firebaseIdToken", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Firebase Session",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/auth/firebase-session",
+        "body": { "mode": "raw", "raw": "{\n  \"idToken\": \"{{firebaseIdToken}}\",\n  \"role\": \"patient\"\n}" }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/auth/login",
+        "body": { "mode": "raw", "raw": "{\n  \"email\": \"admin@demo-hms.local\",\n  \"password\": \"Admin@12345\"\n}" }
+      }
+    },
+    {
+      "name": "Patients",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+        "url": "{{baseUrl}}/patients"
+      }
+    },
+    {
+      "name": "Appointment Transition",
+      "request": {
+        "method": "PATCH",
+        "header": [
+          { "key": "Authorization", "value": "Bearer {{accessToken}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "url": "{{baseUrl}}/appointments/:id/transition",
+        "body": { "mode": "raw", "raw": "{\n  \"status\": \"checked_in\"\n}" }
+      }
+    },
+    {
+      "name": "Bill PDF",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{accessToken}}" }],
+        "url": "{{baseUrl}}/bills/:id/pdf"
+      }
+    }
+  ]
+}
