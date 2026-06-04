@@ -2,6 +2,7 @@
   "name": "hms-enterprise-monorepo",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace backend\" \"npm run dev --workspace frontend\"",
     "dev:full": "npm run docker:db && concurrently \"npm run dev --workspace backend\" \"npm run dev --workspace frontend\"",

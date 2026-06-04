@@ -6,7 +6,13 @@ import rateLimit from 'express-rate-limit';
 import { env } from '../config/env.js';
 
 export const corsMiddleware = cors({
-  origin: env.clientUrl,
+  origin(origin, callback) {
+    if (!origin) return callback(null, true);
+    if (origin === env.clientUrl || /\.vercel\.app$/.test(new URL(origin).hostname)) {
+      return callback(null, true);
+    }
+    return callback(new Error('Not allowed by CORS'));
+  },
   credentials: true
 });
 
